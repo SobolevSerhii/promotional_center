@@ -4,7 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  body       :text             not null
-#  status     :integer          default(0), not null
+#  status     :integer          default("active"), not null
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -21,8 +21,9 @@
 #  fk_rails_...  (creator_id => users.id)
 #
 
-require 'rails_helper'
-
-RSpec.describe PromoMessage, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+FactoryBot.define do
+  factory :promo_message do
+    title { Faker::Lorem.word }
+    body { Faker::Lorem.sentence }
+  end
 end

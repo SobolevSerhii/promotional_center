@@ -12,6 +12,6 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.timestamps
     end
     add_index :users, :phone, where: 'phone is NOT NULL'
-    add_index :users, :device_id, where: 'device_uid IS NOT NULL'
+    add_index :users, :device_id, where: 'device_id IS NOT NULL'
   end
 end

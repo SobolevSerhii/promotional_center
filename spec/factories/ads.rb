@@ -21,8 +21,3 @@
 #  fk_rails_...  (publisher_id => users.id)
 #
 
-class Ad < ApplicationRecord
-  belongs_to :publisher, class_name: :User
-
-  enum status: %i[active pending detach]
-end

@@ -28,13 +28,13 @@ ActiveRecord::Schema.define(version: 2020_01_15_215735) do
   end
 
   create_table "promo_message_recipients", force: :cascade do |t|
-    t.string "recipient_phone", null: false
-    t.bigint "ads_id", null: false
+    t.string "recipient_phone"
+    t.bigint "ad_id", null: false
     t.bigint "promo_message_id", null: false
     t.bigint "recipient_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["ads_id"], name: "index_promo_message_recipients_on_ads_id"
+    t.index ["ad_id"], name: "index_promo_message_recipients_on_ad_id"
     t.index ["promo_message_id"], name: "index_promo_message_recipients_on_promo_message_id"
     t.index ["recipient_id"], name: "index_promo_message_recipients_on_recipient_id"
     t.index ["recipient_phone"], name: "index_promo_message_recipients_on_recipient_phone"
@@ -53,18 +53,22 @@ ActiveRecord::Schema.define(version: 2020_01_15_215735) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.string "phone"
+    t.string "device_id"
     t.string "email", null: false
     t.string "encrypted_password", limit: 128, null: false
     t.string "confirmation_token", limit: 128
     t.string "remember_token", limit: 128, null: false
-    t.index ["email"], name: "index_users_on_email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["device_id"], name: "index_users_on_device_id", where: "(device_id IS NOT NULL)"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["phone"], name: "index_users_on_phone", where: "(phone IS NOT NULL)"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
   add_foreign_key "ads", "users", column: "publisher_id"
-  add_foreign_key "promo_message_recipients", "ads", column: "ads_id"
+  add_foreign_key "promo_message_recipients", "ads"
   add_foreign_key "promo_message_recipients", "promo_messages"
   add_foreign_key "promo_message_recipients", "users", column: "recipient_id"
   add_foreign_key "promo_messages", "users", column: "creator_id"

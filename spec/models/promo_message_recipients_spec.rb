@@ -24,10 +24,8 @@
 #  fk_rails_...  (recipient_id => users.id)
 #
 
-class PromoMessageRecipient < ApplicationRecord
-  # @note
-  # This join model for saved promo_message for recipients
-  belongs_to :ad
-  belongs_to :promo_message
-  belongs_to :recipient, class_name: :User, foreign_key: :recipient_id
+require 'rails_helper'
+
+RSpec.describe PromoMessageRecipient, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

@@ -20,10 +20,3 @@
 #  index_users_on_remember_token  (remember_token)
 #
 
-class User < ApplicationRecord
-  include Clearance::User
-
-  has_many :published_ads, class_name: :Ad, foreign_key: :publisher_id, dependent: :destroy
-  has_many :promo_message_recipients, foreign_key: :recipient_id, dependent: :destroy
-  has_many :promo_messages, through: :promo_message_recipients
-end

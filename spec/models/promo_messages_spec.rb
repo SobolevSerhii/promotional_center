@@ -21,14 +21,8 @@
 #  fk_rails_...  (creator_id => users.id)
 #
 
-class PromoMessage < ApplicationRecord
-  # @note Admin who created this promo_message
-  belongs_to :creator, optional: true
-  has_many :promo_message_recipients, dependent: :destroy
-  has_many :recipients, through: :promo_message_recipients, source: :recipient
+require 'rails_helper'
 
-  # @note - active only used for sending
-  enum status: %i[active pending detach]
-
-  validates :body, :title, presence: true
+RSpec.describe PromoMessage, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end
