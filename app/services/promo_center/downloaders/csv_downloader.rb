@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# frozen_string_literal:
+
+require 'csv'
+
 module PromoCenter
   module Downloaders
     class CsvDowndloader < BaseDownloader

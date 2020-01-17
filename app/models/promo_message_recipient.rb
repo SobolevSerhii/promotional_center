@@ -38,7 +38,7 @@ class PromoMessageRecipient < ApplicationRecord
     self.recipient_phone = recipient&.phone
   end
 
-  scope :filter_by_time_period, ->(date_from, date_to) {
+  scope :filter_by_time_period, lambda { |date_from, date_to|
     if date_from && date_to
       where(created_at: date_from..date_to)
     elsif date_from

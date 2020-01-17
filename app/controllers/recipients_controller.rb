@@ -22,7 +22,7 @@ class RecipientsController < ApplicationController
     @provider = params[:provider]
     raise 'Provider is required' unless provider
 
-    provider_class_name = "#{PromoCenter::Notifiers}::#{provider.to_s}"
+    provider_class_name = "#{PromoCenter::Notifiers}::#{provider}"
     provider_class_name.constantize.new(
       objects: recipients_for_promo,
       promo_message_id: params[:promo_message_id]
