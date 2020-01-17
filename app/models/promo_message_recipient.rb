@@ -40,13 +40,13 @@ class PromoMessageRecipient < ApplicationRecord
 
   scope :filter_by_time_period, ->(date_from, date_to) {
     if date_from && date_to
-      .where(created_at: date_from..date_to)
+      where(created_at: date_from..date_to)
     elsif date_from
-      .where(created_at: date_from..Time.current)
+      where('created_at > ?', date_from)
     elsif date_to
-      .where('created_at < ?', date_to)
+      where('created_at < ?', date_to)
     else
-      all.order(created_at: :desc).page(params[:page])
+      all.order(created_at: :desc)
     end
   }
 end
