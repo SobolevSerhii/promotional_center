@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -20,3 +22,10 @@
 #  index_users_on_remember_token  (remember_token)
 #
 
+FactoryBot.define do
+  factory :user do
+    email { Faker::Internet.email }
+    password { '123123123' }
+    phone { '+79052222222' }
+  end
+end

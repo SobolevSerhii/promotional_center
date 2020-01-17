@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -23,7 +25,9 @@
 class User < ApplicationRecord
   include Clearance::User
 
-  has_many :published_ads, class_name: :Ad, foreign_key: :publisher_id, dependent: :destroy
+  has_many :ads, class_name: :Ad, foreign_key: :publisher_id, dependent: :destroy
+  has_many :published_ads, -> { published }, class_name: :Ad, foreign_key: :publisher_id
+  has_many :detach_ads, -> { detach }, class_name: :Ad, foreign_key: :publisher_id
   has_many :promo_message_recipients, foreign_key: :recipient_id, dependent: :destroy
   has_many :promo_messages, through: :promo_message_recipients
 end

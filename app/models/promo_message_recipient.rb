@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: promo_message_recipients
@@ -30,4 +32,21 @@ class PromoMessageRecipient < ApplicationRecord
   belongs_to :ad
   belongs_to :promo_message
   belongs_to :recipient, class_name: :User, foreign_key: :recipient_id
+
+  before_validation do
+    self.recipient = ad&.publisher
+    self.recipient_phone = recipient&.phone
+  end
+
+  scope :filter_by_time_period, ->(date_from, date_to) {
+    if date_from && date_to
+      .where(created_at: date_from..date_to)
+    elsif date_from
+      .where(created_at: date_from..Time.current)
+    elsif date_to
+      .where('created_at < ?', date_to)
+    else
+      all.order(created_at: :desc).page(params[:page])
+    end
+  }
 end

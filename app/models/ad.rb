@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: ads
@@ -24,5 +26,15 @@
 class Ad < ApplicationRecord
   belongs_to :publisher, class_name: :User
 
-  enum status: %i[active pending detach]
+  enum status: %i[published detach]
+
+  scope :ipublished_in_time_interval, lambda { |date_from, date_to|
+    if date_from && date_to
+      where(created_at: date_from..date_to)
+    elsif date_from
+      where('created_at > ?', date_from)
+    elsif date_to
+      where('created_at < ?', date_to)
+    end
+  }
 end

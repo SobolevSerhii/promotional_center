@@ -21,3 +21,11 @@
 #  fk_rails_...  (publisher_id => users.id)
 #
 
+
+FactoryBot.define do
+  factory :ad do
+    title { Faker::Lorem.word }
+    description { Faker::Lorem.sentence }
+    publisher { create(:user) }
+  end
+end

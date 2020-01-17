@@ -1,6 +1,6 @@
-class PromoMessagesController < ApplicationController
-  attr_reader :provider
+# frozen_string_literal: true
 
+class PromoMessagesController < ApplicationController
   def index
     promo_messages = PromoMessage.all
     render json: promo_messages, status: :ok
@@ -31,24 +31,7 @@ class PromoMessagesController < ApplicationController
     end
   end
 
-  #   users = get_users
-  #   recipients = []
-  #   users.each do |user|
-  #     recipients << user.phone
-  #   end
-
-  #   if @message.save && send_message(recipients)
-  #     redirect_to promo_messages_path, notice: "Messages Sent Successfully!"
-  #   end
-  # end
-
-  # def download_csv
-  #   users = get_users
-  #   send_data to_csv(users), filename: "promotion-users-#{Time.zone.today}.csv"
-  # end
-
   private
-
 
   def promo_message
     @promo_message = PromoMessage.find(params[:id])
@@ -57,26 +40,4 @@ class PromoMessagesController < ApplicationController
   def promo_message_params
     params.permit(:title, :body)
   end
-
-  # def to_csv(data)
-  #   attributes = %w(id phone name)
-  #   CSV.generate(headers: true) do |csv|
-  #     csv << attributes
-  #     data.each do |user|
-  #       csv << attributes.map { |attr| user.send(attr) }
-  #     end
-  #   end
-  # end
-
-  # def send_message(recipients)
-  #   recipients.each do |r|
-  #     PromoMessagesSendJob.perform_later(r)
-  #   end
-  # end
-
-  # def get_users
-  #   @users = User.recent.joins(:ads).group("ads.user_id").where("`published_ads_count` = 1").
-  #     where("published_at Between ? AND ?", Date.parse(params[:date_from]), Date.parse(params[:date_to])).page(params[:page])
-  # end
-
 end

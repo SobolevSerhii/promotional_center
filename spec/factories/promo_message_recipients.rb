@@ -24,3 +24,11 @@
 #  fk_rails_...  (recipient_id => users.id)
 #
 
+FactoryBot.define do
+  factory :promo_message_recipient do
+    ad { create(:ad) }
+    promo_message { create(:promo_message) }
+    recipient { self.ad.publisher }
+    recipient_phone { Faker::Phone.number }
+  end
+end
